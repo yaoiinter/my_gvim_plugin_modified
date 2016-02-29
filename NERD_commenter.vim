@@ -1486,11 +1486,17 @@ endfunction
 " Args:
 " 在注释末尾添加年月日和注释添加人
 function s:AddRightDelim(delim, theLine)
-    if a:delim == ''
-        return a:theLine . " " . strftime("%Y-%m-%d") . ' modify by yy'
-    else
-        return substitute(a:theLine, '$', " " . strftime("%Y-%m-%d") . ' modify by yy' . a:delim, '')
-    endif
+	if g:personal_commenter == ''
+		if a:delim == ''
+			return a:theLine . " " . strftime("%Y-%m-%d") . ' modify by yy'
+		else
+			return substitute(a:theLine, '$', " " . strftime("%Y-%m-%d") . ' modify by yy' . a:delim, '')
+		endif
+	else
+		if a:delim == ''
+			return a:theLine . g:personal_commenter
+		else
+			return substitute(a:theLine, '$', g:personal_commenter . a:delim, '')
 endfunction
 
 " Function: s:AddRightDelimAligned(delim, theLine, alignIndx) {{{2
