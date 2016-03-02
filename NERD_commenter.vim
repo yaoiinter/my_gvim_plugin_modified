@@ -1486,6 +1486,9 @@ endfunction
 " Args:
 " 在注释末尾添加年月日和注释添加人
 function s:AddRightDelim(delim, theLine)
+    if !exists(g:personal_commenter)
+        let g:personal_commenter = ''
+    endif
 	if g:personal_commenter == ''
 		if a:delim == ''
 			return a:theLine . " " . strftime("%Y-%m-%d") . ' modify by yy'
